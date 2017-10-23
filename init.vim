@@ -73,7 +73,7 @@ syntax on
 filetype plugin indent on
 
 if !has("gui_vimr")
-  set guifont=Source\ Code\ Pro\ For\ Powerline:h13
+  set guifont=Source\ Code\ Pro:h13
 endif
 if has("gui_running")
   colorscheme seagull
@@ -391,7 +391,7 @@ set rtp+=/usr/local/opt/fzf
 set rtp+=~/.fzf
 nmap ; :Buffers<CR>
 nmap <Leader>r :Tags<CR>
-nmap <Leader>t :GFiles<CR>
+nmap <Leader>f :GFiles<CR>
 nmap <Leader>a :Ag<CR>
 
 " Tell ack.vim to use ag (the Silver Searcher) instead
@@ -479,3 +479,11 @@ function! ProseMode()
   colors solarized
 endfunction
 command! ProseMode call ProseMode()
+
+
+" ALE
+nmap [r <Plug>(ale_previous_wrap)
+nmap ]r <Plug>(ale_next_wrap)
+
+" polyglot disables
+let g:polyglot_disabled = ['elm']
