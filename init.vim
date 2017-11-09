@@ -10,7 +10,8 @@ Plug 'ivalkeen/vim-simpledb'
 
 Plug 'parsonsmatt/intero-neovim'
 Plug 'owickstrom/neovim-ghci'
-Plug 'neovimhaskell/haskell-vim'
+" Plug 'neovimhaskell/haskell-vim'
+" Plug 'itchyny/vim-haskell-indent'
 
 Plug 'nightsense/seabird'
 Plug 'mhartington/oceanic-next'
@@ -19,15 +20,16 @@ Plug 'tpope/vim-surround'
 
 Plug 'jremmen/vim-ripgrep'
 Plug 'vmchale/ripgrep-haskell'
-Plug 'nbouscal/vim-stylish-haskell'
+" Plug 'nbouscal/vim-stylish-haskell'
+Plug 'alx741/vim-stylishask'
 Plug 'vmchale/hask-replace-vim'
 Plug 'glittershark/vim-hare'
 
 Plug 'Rykka/InstantRst'
 Plug 'Rykka/riv.vim'
 
-Plug 'pangloss/vim-javascript'
-Plug 'chemzqm/vim-jsx-improve'
+" Plug 'pangloss/vim-javascript'
+" Plug 'chemzqm/vim-jsx-improve'
 "Plug 'mxw/vim-jsx'
 Plug 'leshill/vim-json'
 Plug 'flowtype/vim-flow', { 'for': 'javascript' }
@@ -66,6 +68,11 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'w0rp/ale'
 Plug 'wellle/targets.vim'
+
+Plug 'purescript-contrib/purescript-vim'
+Plug 'frigoeu/psc-ide-vim'
+
+Plug 'khardix/vim-literate'
 
 call plug#end()
 
@@ -422,6 +429,10 @@ let g:ale_sign_error = '✗'
 highlight link ALEWarningSign String
 highlight link ALEErrorSign Title
 
+let g:ale_linters = {
+\    'haskell': ['hdevtools'],
+\  }
+
 " Lightline
 let g:lightline = {
 \ 'colorscheme': 'wombat',
@@ -487,3 +498,17 @@ nmap ]r <Plug>(ale_next_wrap)
 
 " polyglot disables
 let g:polyglot_disabled = ['elm']
+
+
+autocmd BufRead,BufNewFile *.lhs set filetype=mkdhaskell
+set textwidth=80
+
+set formatprg=stylish-haskell
+
+" let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
+" let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
+" let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
+" let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
+" let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+" let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
+" let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
