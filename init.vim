@@ -12,6 +12,7 @@ Plug 'parsonsmatt/intero-neovim'
 Plug 'owickstrom/neovim-ghci'
 " Plug 'neovimhaskell/haskell-vim'
 " Plug 'itchyny/vim-haskell-indent'
+Plug 'vmchale/pointfree'
 
 Plug 'nightsense/seabird'
 Plug 'mhartington/oceanic-next'
@@ -73,6 +74,20 @@ Plug 'purescript-contrib/purescript-vim'
 Plug 'frigoeu/psc-ide-vim'
 
 Plug 'khardix/vim-literate'
+
+
+Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+
+" (Optional) Multi-entry selection UI.
+Plug 'Shougo/denite.nvim'
+
+" (Optional) Completion integration with deoplete.
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" (Optional) Completion integration with nvim-completion-manager.
+Plug 'roxma/nvim-completion-manager'
+
+" (Optional) Showing function signature and inline doc.
+Plug 'Shougo/echodoc.vim'
 
 call plug#end()
 
@@ -430,7 +445,7 @@ highlight link ALEWarningSign String
 highlight link ALEErrorSign Title
 
 let g:ale_linters = {
-\    'haskell': ['hdevtools'],
+\    'haskell': ['hdevtools', 'hlint', 'hfmt'],
 \  }
 
 " Lightline
@@ -501,9 +516,8 @@ let g:polyglot_disabled = ['elm']
 
 
 autocmd BufRead,BufNewFile *.lhs set filetype=mkdhaskell
-set textwidth=80
 
-set formatprg=stylish-haskell
+autocmd FileType html setlocal formatprg=stylish-haskell
 
 " let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
 " let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
@@ -512,3 +526,11 @@ set formatprg=stylish-haskell
 " let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
 " let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 " let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+
+tnoremap <Esc> <C-\><C-n>
+au BufNewFile,BufRead *.hs nmap pf <Plug>Pointfree
+
+
+let g:LanguageClient_serverCommands = {
+    \ 'haskell': ['hie', '--lsp'],
+    \ }
