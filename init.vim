@@ -9,6 +9,7 @@ Plug 'lifepillar/pgsql.vim'
 Plug 'ivalkeen/vim-simpledb'
 
 Plug 'parsonsmatt/intero-neovim'
+Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
 Plug 'owickstrom/neovim-ghci'
 " Plug 'neovimhaskell/haskell-vim'
 " Plug 'itchyny/vim-haskell-indent'
@@ -164,7 +165,7 @@ augroup ghciMaps
   " RELOADING (PICK ONE):
 
   " Automatically reload on save
-  au BufWritePost *.hs GhciReload
+  " au BufWritePost *.hs GhciReload
   " Manually save and reload
   au FileType haskell nnoremap <silent> <leader>wr :w \| :GhciReload<CR>
 
@@ -174,7 +175,8 @@ augroup ghciMaps
 augroup END
 
 let g:ghci_command = 'stack ghci'
-let g:ghci_command_line_options = '--ghci-options fobject-code'
+" let g:ghci_command_line_options = '--ghci-options fobject-code'
+let g:ghci_start_immediately = 0
 
 endif
 
