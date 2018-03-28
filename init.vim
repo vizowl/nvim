@@ -1,12 +1,18 @@
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
 " - Avoid using standard Vim directory names like 'plugin'
+"
+
+let g:python3_host_prog = '/usr/local/bin/python3'
 call plug#begin('~/.local/share/nvim/site')
 
 Plug 'ElmCast/elm-vim'
 Plug 'jalvesaq/Nvim-R'
 Plug 'lifepillar/pgsql.vim'
 Plug 'ivalkeen/vim-simpledb'
+
+Plug 'vim-scripts/dbext.vim'
+
 
 Plug 'parsonsmatt/intero-neovim'
 Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
@@ -21,7 +27,6 @@ Plug 'LnL7/vim-nix'
 Plug 'tpope/vim-surround'
 
 Plug 'jremmen/vim-ripgrep'
-Plug 'vmchale/ripgrep-haskell'
 " Plug 'nbouscal/vim-stylish-haskell'
 Plug 'alx741/vim-stylishask'
 Plug 'vmchale/hask-replace-vim'
@@ -55,6 +60,8 @@ Plug 'mileszs/ack.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'qpkorr/vim-bufkill'
 Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
 Plug 'sheerun/vim-polyglot'
 Plug 'statico/vim-inform7'
 Plug 'tomasr/molokai'
@@ -98,10 +105,10 @@ filetype plugin indent on
 if !has("gui_vimr")
   set guifont=Source\ Code\ Pro:h13
 endif
-if has("gui_running")
-  colorscheme seagull
-else
+if !has("gui_running")
   colorscheme OceanicNextLight
+else
+  colorscheme greygull
 endif
 let g:sql_type_default = 'pgsql'
 let g:R_assign = 2
@@ -199,7 +206,6 @@ set nostartofline
 
 let g:flow#autoclose = 1
 
-let g:simpledb_use_default_keybindings = 0
 
 
 " statico/dotfiles
@@ -448,6 +454,7 @@ highlight link ALEErrorSign Title
 
 let g:ale_linters = {
 \    'haskell': ['hdevtools', 'hlint', 'hfmt'],
+\    'javascript': ['eslint']
 \  }
 
 " Lightline
@@ -504,7 +511,7 @@ function! ProseMode()
   if !has('gui_running')
     let g:solarized_termcolors=256
   endif
-  colors solarized
+  colorscheme greygull
 endfunction
 command! ProseMode call ProseMode()
 
@@ -532,7 +539,25 @@ autocmd FileType html setlocal formatprg=stylish-haskell
 " tnoremap <Esc> <C-\><C-n>
 " au BufNewFile,BufRead *.hs nmap pf <Plug>Pointfree
 
+autocmd BufWinEnter,WinEnter term://* startinsert
+autocmd BufLeave term://* stopinsert
+tnoremap <C-h> <C-\><C-n><C-w>h
+" Workaround since <C-h> isn't working in neovim right now
+tnoremap <C-h> <C-\><C-n><C-w>h
+tnoremap <C-j> <C-\><C-n><C-w>j
+tnoremap <C-k> <C-\><C-n><C-w>k
+tnoremap <C-l> <C-\><C-n><C-w>l
+
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
 
 let g:LanguageClient_serverCommands = {
     \ 'haskell': ['hie', '--lsp'],
     \ }
+let R_assign = 0
+
+let g:elm_format_autosave = 0
+
